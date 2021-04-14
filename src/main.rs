@@ -33,6 +33,7 @@ fn main() {
     button.set_callback(|| {
         fltk::dialog::alert(100, 100, "General Kenobi!");
     });
+    button.handle(|event|{println!("Event handled: {:?}",event);true});
     second_window.add(&button);
 
     window.show();
