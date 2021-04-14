@@ -1,0 +1,3 @@
+force_multiline_blocks = true
+match_block_trailing_comma = true
+max_width = 150 #browser wars are over, use technology!
