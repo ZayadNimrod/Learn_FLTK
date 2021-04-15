@@ -3,41 +3,65 @@ use fltk::button::*;
 use fltk::enums::Color;
 use fltk::text::*;
 use fltk::window::*;
+use fltk::group;
+use fltk::frame;
+use std::cell::RefCell;
 
 fn main() {
     let app = app::App::default();
-    let mut window = Window::new(100, 100, 400, 300, "FLTK testing");
-    //window.set_border(false);
-    let mut my_window2 = Window::new(10, 10, 190, 280, "");
-    my_window2.set_color(Color::Red);
-    my_window2.end();
+    let mut window = Window::new(100, 100, 100, 300, "FLTK testing");
+    let mut count:RefCell<u32> = RefCell::new(0);
 
-    let mut my_window3 = Window::new(200, 10, 190, 280, "");
-    my_window3.set_color(Color::Green);
+    let mut packing = group::Pack::default().with_size(100,300).center_of(&window);
+    packing.set_type(group::PackType::Vertical);
 
-    let mut my_window4 = Window::new(0, 0, 190, 140, "");
-    my_window4.set_color(Color::Black);
-    my_window4.end();
+    let mut button_inc = Button::default()
+        .with_label("Increment!");
 
-    my_window3.end();
+
+
+
+
+    let mut display = frame::Frame::default()
+        //.center_of(&window)
+        .with_label("0");
+
+
+    let mut button_dec = Button::default()//.with_size(100,50)
+        .with_label("decrement!");
+
+/*
+    button_inc.set_callback(|| {
+        *count.borrow_mut()+=1;
+        display.set_label(&(*count.borrow()).to_string());
+    });
+
+
+    button_dec.set_callback(|| {
+        *count.borrow_mut()-=1;
+        display.set_label(&(*count.borrow()).to_string());
+    });
+
+    button_dec.handle2(|b,event| match event{
+        Event::Enter => {b.set_label("Decrement"); true},
+        Event::Leave => {b.set_label("decrement"); true},
+        _ => false,
+    });
+*/
+    packing.auto_layout();
+    packing.end();
+
+
+
+
+
+
     window.end();
 
-    let mut second_window = Window::new(110, 110, 160, 80, "");
-    second_window.end();
 
-    let mut button = Button::default()
-        .with_label("Hello there!")
-        .with_align(fltk::enums::Align::Center)
-        .with_size(120, 30)
-        .center_of(&second_window);
-    button.set_callback(|| {
-        fltk::dialog::alert(100, 100, "General Kenobi!");
-    });
-    button.handle(|event|{println!("Event handled: {:?}",event);true});
-    second_window.add(&button);
+
 
     window.show();
-    second_window.show();
 
     app.run().unwrap();
 }
