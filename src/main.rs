@@ -9,6 +9,7 @@ use std::cell::RefCell;
 
 fn main() {
     let app = app::App::default();
+    app.with_scheme(app::Scheme::Base);
     let mut window = Window::new(100, 100, 100, 300, "FLTK testing");
     let mut count:RefCell<u32> = RefCell::new(0);
 
